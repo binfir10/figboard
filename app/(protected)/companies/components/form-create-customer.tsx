@@ -81,6 +81,41 @@ export default function FormCreateCustomer({
           <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
             <FormField
               control={form.control}
+              name="profileImage"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Imagen de perfil</FormLabel>
+                  <FormControl>
+                    {photoUploader ? (
+                      <p className="m-auto flex h-10 items-center justify-center rounded-md bg-green-950/50 text-center text-sm">
+                        Image uploaded!
+                      </p>
+                    ) : (
+                      <UploadButton
+                        className="outline-3 flex-row rounded-lg bg-accent/30 hover:bg-accent/40"
+                        {...field}
+                        endpoint="profileImage"
+                        onClientUploadComplete={(res) => {
+                          form.setValue("profileImage", res?.[0].url);
+                          toast({
+                            title: "Photo uploaded!",
+                          });
+                          setPhotoUploader(true);
+                        }}
+                        onUploadError={(error: Error) => {
+                          toast({
+                            title: "Error uploading photo",
+                          });
+                        }}
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
@@ -92,6 +127,7 @@ export default function FormCreateCustomer({
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="country"
@@ -163,41 +199,6 @@ export default function FormCreateCustomer({
                   <FormLabel>CP</FormLabel>
                   <FormControl>
                     <Input placeholder="B-1234" {...field} type="text" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="profileImage"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Imagen de perfil</FormLabel>
-                  <FormControl>
-                    {photoUploader ? (
-                      <p className="m-auto flex h-10 items-center justify-center rounded-md bg-green-950/50 text-center text-sm">
-                        Image uploaded!
-                      </p>
-                    ) : (
-                      <UploadButton
-                        className="outline-3 flex-row rounded-lg bg-accent/30 hover:bg-accent/40"
-                        {...field}
-                        endpoint="profileImage"
-                        onClientUploadComplete={(res) => {
-                          form.setValue("profileImage", res?.[0].url);
-                          toast({
-                            title: "Photo uploaded!",
-                          });
-                          setPhotoUploader(true);
-                        }}
-                        onUploadError={(error: Error) => {
-                          toast({
-                            title: "Error uploading photo",
-                          });
-                        }}
-                      />
-                    )}
                   </FormControl>
                   <FormMessage />
                 </FormItem>

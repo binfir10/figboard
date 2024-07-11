@@ -10,7 +10,7 @@ export const revalidate = 0;
 export async function ListCompanies() {
   const { userId } = auth();
   if (!userId) {
-    return redirect("/sing-in");
+    return redirect("/sign-in");
   }
 
   const data = await db.company.findMany({

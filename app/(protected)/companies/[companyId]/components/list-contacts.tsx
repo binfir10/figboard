@@ -11,7 +11,7 @@ export async function ListContacts(props: CompanyProps) {
   const { userId } = auth();
 
   if (!userId) {
-    return redirect("/sing-in");
+    return redirect("/sign-in");
   }
 
   const contacts = await db.contact.findMany({
