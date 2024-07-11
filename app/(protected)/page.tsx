@@ -37,7 +37,7 @@ export default function page() {
   );
 }
 
-export const dataCardsSummary = [
+const dataCardsSummary = [
   {
     icon: UserRound,
     total: "12.450",
